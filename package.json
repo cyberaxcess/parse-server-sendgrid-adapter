@@ -16,16 +16,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/oursky/parse-server-sendgrid-adapter.git"
+    "url": "git+https://github.com/hej2010/parse-server-sendgrid-adapter.git"
   },
   "keywords": [
     "parse-server",
     "sendgrid"
   ],
-  "author": "Oursky",
+  "author": "Oursky & Hej2010",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/oursky/parse-server-sendgrid-adapter/issues"
+    "url": "https://github.com/hej2010/parse-server-sendgrid-adapter/issues"
   },
-  "homepage": "https://github.com/oursky/parse-server-sendgrid-adapter#readme"
+  "homepage": "https://github.com/hej2010/parse-server-sendgrid-adapter#readme"
 }
