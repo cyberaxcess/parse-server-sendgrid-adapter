@@ -1,5 +1,5 @@
 # parse-server-sendgrid-adapter
-Simple sendgrid adapter for parse server
+Simple sendgrid adapter for parse server, modified to use the newest SendGrid packages
 
 ## Configuration
 
