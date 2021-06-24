@@ -32,7 +32,7 @@ let SimpleSendGridAdapter = mailOptions => {
       });
     }*/
 
-    return sgMail
+    let sendMail = sgMail
         .send(msg)
         .then((response) => {
             console.log(response[0].statusCode)
@@ -42,9 +42,9 @@ let SimpleSendGridAdapter = mailOptions => {
             console.error(error)
         });
 
-    /*return Object.freeze({
-         sendMail: sendMail
-     });*/
+    return Object.freeze({
+        sendMail: sendMail
+    });
 }
 
-export default SimpleSendGridAdapter
+module.exports = SimpleSendGridAdapter;
