@@ -4,7 +4,7 @@
   "description": "Simple sendgrid adapter for parse server",
   "main": "lib/index.js",
   "dependencies": {
-    "@sendgrid/mail": "^7.5.5"
+    "@sendgrid/mail": "^7.4.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",
