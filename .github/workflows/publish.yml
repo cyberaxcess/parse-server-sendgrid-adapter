@@ -1,4 +1,4 @@
-name: Publish package to GitHub Packages
+name: Publish package to NPMjs Packages
 on:
   release:
     types: [created]
@@ -16,7 +16,7 @@ jobs:
           node-version: '16.13.0'
           registry-url: 'https://registry.npmjs.org'
       - run: npm install
-      - run: npm publish
+      - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           
