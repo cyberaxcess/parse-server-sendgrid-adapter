@@ -2,15 +2,11 @@ import sgMail from "@sendgrid/mail"
 import fs from 'fs';
 
 module.exports = mailOptions => {
-  if (!mailOptions || !mailOptions.adapter) {
+  if (!mailOptions || !mailOptions.template) {
     throw 'MailTemplateAdapter requires an adapter';
   }
 
   const { adapter, apiKey, fromAddress } = mailOptions;
-
-  if (!mailOptions.template) {
-    return mailOptions.adapter;
-  }
 
   if (!fromAddress) {
     throw 'MailTemplateAdapter requires a fromAddress';
