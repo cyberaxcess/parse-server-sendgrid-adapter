@@ -1,80 +1,65 @@
-import sgMail from "@sendgrid/mail"
-import fs from 'fs';
+const sgMail = require("@sendgrid/mail");
 
-module.exports = mailOptions => {
-  if (!mailOptions || !mailOptions.template) {
-    throw 'MailTemplateAdapter requires an adapter';
-  }
+module.exports = ({
+  apiKey,
+  from,
+  passwordResetEmailTemplate,
+  verificationEmailTemplate
+}) => {
+  if (!apiKey || !from)
+    throw "SendGridAdapter requires an API Key && from Email Address";
+  if (!passwordResetEmailTemplate)
+    throw "SendGridAdapter requires password reset email template";
+  if (!verificationEmailTemplate)
+    throw "SendGridAdapter requires verification email template";
 
-  const { adapter, apiKey, fromAddress } = mailOptions;
+  sgMail.setApiKey(apiKey);
 
-  if (!fromAddress) {
-    throw 'MailTemplateAdapter requires a fromAddress';
-  }
-  if (!apiKey) {
-    throw 'MailTemplateAdapter requires a apiKey';
-  }
+  const sendMail = ({
+    to,
+    subject,
+    templateId,
+    dynamic_template_data,
+    html
+  }) => {
+    const mail = {
+      from,
+      to,
+      subject,
+      html,
+      templateId,
+      dynamic_template_data
+    };
+    return sgMail.send(mail);
+  };
 
-  sgMail.setApiKey(apiKey)
+  const sendPasswordResetEmail = ({ link, appName, user }) => {
+    return sendMail({
+      to: user.get("email") || user.get("username"),
+      templateId: passwordResetEmailTemplate,
+      dynamic_template_data: {
+        link,
+        appName,
+        email: user.get("email") || user.get("username")
+      }
+    });
+  };
 
-  const customized = {};
+  const sendVerificationEmail = ({ link, appName, user }) => {
+    return sendMail({
+      to: user.get("email") || user.get("username"),
+      templateId: verificationEmailTemplate,
+      dynamic_template_data: {
+        link,
+        appName,
+        email: user.get("email") || user.get("username")
+      }
+    });
+  };
 
-  if (mailOptions.template.verification) {
-    const { templateId } = mailOptions.template.verification;
-
-    if (!templateId) {
-      throw 'MailTemplateAdapter requires a template id';
-    }
-
-    customized.sendVerificationEmail = options =>
-      sendTemplate({
-        link: options.link,
-        email: options.user.get('email'),
-        username: options.user.get('username'),
-        appName: options.appName,
-        templateId,
-        apiKey,
-        fromAddress
-      });
-  }
-
-  if (mailOptions.template.resetPassword) {
-    const { templateId } = mailOptions.template.resetPassword;
-
-    if (!templateId) {
-      throw 'MailTemplateAdapter requires a template id';
-    }
-
-    customized.sendPasswordResetEmail = options =>
-      sendTemplate({
-        link: options.link,
-        email: options.user.get('email'),
-        username: options.user.get('username'),
-        appName: options.appName,
-        templateId,
-        apiKey,
-        fromAddress
-      });
-  }
-
-  return Object.freeze(Object.assign(customized, adapter));
+  return {
+    sendMail,
+    sendVerificationEmail,
+    sendPasswordResetEmail
+  };
 };
-
-
-function sendTemplate(params) {
-  const sendgrid = require('sendgrid')(params.apiKey);
-  const { email, link, username, appName, fromAddress, templateId } = params;
-  const template_id = templateId;
-
-  const msg = {
-    to: email,
-    from: fromAddress,
-    templateId: template_id,
-    dynamic_template_data: {
-      username: username,
-      link: link,
-      appName: appName,
-    },
-  }
-  return sgMail.send(msg)
-}
