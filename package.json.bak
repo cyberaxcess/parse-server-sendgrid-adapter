@@ -1,0 +1,30 @@
+{
+  "name": "@cyberaxcess/parse-server-sendgrid-adapter",
+  "version": "1.0.2",
+  "description": "Simple sendgrid adapter for parse server",
+  "main": "lib/index.js",
+  "dependencies": {
+    "@sendgrid/mail": "^7.4.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.5",
+    "@babel/core": "^7.14.6",
+    "@babel/node": "^7.14.7",
+    "@babel/preset-env": "^7.14.7",
+    "babel-cli": "^6.26.0"
+  },
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "parse-server",
+    "sendgrid"
+  ],
+  "author": "cyberaxcess, based on Oursky & Hej2010",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cyberaxcess/parse-server-sendgrid-adapter/issues"
+  },
+  "homepage": "https://github.com/cyberaxcess/parse-server-sendgrid-adapter#readme"
+}
