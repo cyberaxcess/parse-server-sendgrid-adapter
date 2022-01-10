@@ -1,6 +1,6 @@
 {
   "name": "@cyberaxcess/parse-server-sendgrid-adapter",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Simple sendgrid adapter for parse server",
   "main": "lib/index.js",
   "dependencies": {

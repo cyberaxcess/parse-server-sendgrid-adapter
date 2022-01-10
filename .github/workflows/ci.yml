@@ -23,9 +23,3 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm run build --if-present
-      - name: Archive compiled files
-        uses: actions/upload-artifact@v2
-        with:
-          name: lib-compiled
-          path: lib
-
